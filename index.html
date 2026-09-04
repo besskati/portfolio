@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motion Designer — Portfólió</title>
+<meta name="description" content="Motion design portfólió — about, works, cv">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  /* ---------- Tokens ---------- */
+  :root{
+    --paper: #edede7;
+    --ink: #15161a;
+    --accent: #3341ff;
+    --muted: #85857c;
+    --line: rgba(21,22,26,0.14);
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --max: 68rem;
+    --gutter: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+  section{ padding: 0 var(--gutter); }
+
+  .wrap{ max-width: var(--max); margin: 0 auto; }
+
+  /* ---------- Nav ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.25rem;
+  }
+  .mark{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+  .mark span{ color: var(--accent); }
+
+  .navlinks{
+    display: flex;
+    gap: clamp(1.25rem, 3vw, 2.25rem);
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .navlinks a{
+    position: relative;
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: var(--ink);
+    padding-bottom: 4px;
+  }
+  .navlinks a::after{
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%;
+    height: 1.5px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+  }
+  .navlinks a:hover::after,
+  .navlinks a[aria-current="true"]::after{
+    transform: scaleX(1);
+  }
+  .navlinks a:focus-visible,
+  .mark:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding-top: clamp(4rem, 12vw, 8rem);
+    padding-bottom: clamp(3rem, 8vw, 6rem);
+  }
+  .hero-eyebrow{
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 30ch;
+    margin: 0 0 1.75rem;
+  }
+  h1.kinetic{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(3rem, 9.5vw, 7.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+  h1.kinetic .line{
+    display: block;
+    overflow: hidden;
+  }
+  h1.kinetic .line span{
+    display: block;
+    transform: translateY(105%);
+    animation: reveal 0.9s cubic-bezier(.2,.9,.2,1) forwards;
+  }
+  h1.kinetic .line:nth-child(1) span{ animation-delay: 0.05s; }
+  h1.kinetic .line:nth-child(2) span{ animation-delay: 0.18s; color: var(--accent); }
+  @keyframes reveal{ to{ transform: translateY(0); } }
+
+  .hero-foot{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .hero-foot strong{
+    display: block;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+
+  /* ---------- Section headers ---------- */
+  .section-head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+  }
+  .section-head h2{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .section-head .count{
+    color: var(--muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  #about, #works, #cv{
+    padding-top: clamp(4rem, 8vw, 6rem);
+    padding-bottom: clamp(4rem, 8vw, 6rem);
+    border-top: 1px solid var(--line);
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 760px){
+    .about-grid{ grid-template-columns: 1fr 1.4fr; gap: 4rem; }
+  }
+  .about-lede{
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    max-width: 22ch;
+    margin: 0;
+  }
+  .about-body p{
+    max-width: 62ch;
+    color: var(--ink);
+    margin: 0 0 1.1rem;
+  }
+  .about-body p:last-child{ margin-bottom: 0; }
+  .about-body .muted{ color: var(--muted); }
+
+  /* ---------- Works ---------- */
+  .work-list{ list-style: none; margin: 0; padding: 0; }
+  .work-row{
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .work-row:last-child{ border-bottom: 1px solid var(--line); }
+  .work-title{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+    letter-spacing: -0.01em;
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+  .work-tag{
+    color: var(--muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .work-year{
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .work-row:hover .work-title,
+  .work-row:focus-visible .work-title{
+    color: var(--accent);
+    transform: translateX(6px);
+  }
+  .work-row:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  /* ---------- CV ---------- */
+  .cv-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 760px){
+    .cv-grid{ grid-template-columns: 1.4fr 1fr; gap: 4rem; }
+  }
+  .cv-block h3{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -0.005em;
+    margin: 0 0 1.25rem;
+    color: var(--muted);
+  }
+  .cv-item{
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .cv-item:last-child{ border-bottom: 1px solid var(--line); }
+  .cv-period{
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    padding-top: 0.15rem;
+  }
+  .cv-role{ font-weight: 500; }
+  .cv-org{ color: var(--muted); font-size: 0.92rem; }
+
+  .skill-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .skill-tags span{
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+
+  .cv-download{
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.85rem 1.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    border-radius: 2px;
+    font-size: 0.92rem;
+    transition: background 0.25s ease;
+  }
+  .cv-download:hover{ background: var(--accent); }
+  .cv-download:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: clamp(3rem, 6vw, 4.5rem) var(--gutter);
+    border-top: 1px solid var(--line);
+  }
+  footer .wrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  footer a{ text-decoration: none; color: var(--ink); }
+  footer a:hover{ color: var(--accent); }
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap" aria-label="Fő navigáció">
+    <a class="mark" href="#top">nev<span>.</span></a>
+    <ul class="navlinks">
+      <li><a href="#about" data-nav>about</a></li>
+      <li><a href="#works" data-nav>works</a></li>
+      <li><a href="#cv" data-nav>cv</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="hero-eyebrow">Motion designer — mozgásban gondolkodom, képkockáról képkockára.</p>
+      <h1 class="kinetic">
+        <span class="line"><span>Vizuális</span></span>
+        <span class="line"><span>ritmus.</span></span>
+      </h1>
+      <div class="hero-foot">
+        <div>
+          <strong>Alapítva</strong>
+          Budapest, 2020 óta
+        </div>
+        <div>
+          <strong>Fókusz</strong>
+          Márka­animáció, UI motion, karakter mozgás
+        </div>
+        <div>
+          <strong>Elérhetőség</strong>
+          <a href="mailto:hello@pelda.hu">hello@pelda.hu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about-grid">
+      <p class="about-lede">Az apró mozdulatokban hiszek — azokban, amik nem feltűnnek, csak érződnek.</p>
+      <div class="about-body">
+        <p>Motion designerként főleg olyan projekteken dolgozom, ahol a mozgás nem díszítés, hanem magyarázat: hogyan lép egymásba két állapot, hogyan reagál egy felület az érintésre, hogyan mesél egy márka anélkül, hogy egy szót is kiírna.</p>
+        <p class="muted">Az elmúlt években ügynökségi és önálló projekteken keresztül dolgoztam márkafilmeken, UI mikroanimációkon és interaktív kampányoldalakon — Rive-tól a After Effectsig, ott, ahol a feladat kívánja.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="works">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Válogatott munkák</h2>
+        <span class="count">4 projekt</span>
+      </div>
+      <ul class="work-list">
+        <li>
+          <a class="work-row" href="#">
+            <span class="work-title">Northlight — márkafilm animáció</span>
+            <span class="work-tag">Brand film</span>
+            <span class="work-year">2025</span>
+          </a>
+        </li>
+        <li>
+          <a class="work-row" href="#">
+            <span class="work-title">Pulse — UI mikroanimációk</span>
+            <span class="work-tag">Product / UI</span>
+            <span class="work-year">2024</span>
+          </a>
+        </li>
+        <li>
+          <a class="work-row" href="#">
+            <span class="work-title">Aurora Fest — vizuális identitás</span>
+            <span class="work-tag">Identity / motion</span>
+            <span class="work-year">2024</span>
+          </a>
+        </li>
+        <li>
+          <a class="work-row" href="#">
+            <span class="work-title">Solace — logóanimáció</span>
+            <span class="work-tag">Logo reveal</span>
+            <span class="work-year">2023</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="cv">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>CV</h2>
+      </div>
+      <div class="cv-grid">
+        <div class="cv-block">
+          <h3>Tapasztalat</h3>
+          <div class="cv-item">
+            <span class="cv-period">2024—</span>
+            <div>
+              <div class="cv-role">Senior Motion Designer</div>
+              <div class="cv-org">Stúdió neve</div>
+            </div>
+          </div>
+          <div class="cv-item">
+            <span class="cv-period">2022—24</span>
+            <div>
+              <div class="cv-role">Motion Designer</div>
+              <div class="cv-org">Ügynökség neve</div>
+            </div>
+          </div>
+          <div class="cv-item">
+            <span class="cv-period">2020—22</span>
+            <div>
+              <div class="cv-role">Junior grafikus / animátor</div>
+              <div class="cv-org">Cég neve</div>
+            </div>
+          </div>
+        </div>
+        <div class="cv-block">
+          <h3>Eszközök</h3>
+          <div class="skill-tags">
+            <span>After Effects</span>
+            <span>Rive</span>
+            <span>Cinema 4D</span>
+            <span>Figma</span>
+            <span>Lottie</span>
+            <span>Principle</span>
+          </div>
+          <a class="cv-download" href="#">CV letöltése (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 — Motion Designer</span>
+    <span>
+      <a href="mailto:hello@pelda.hu">hello@pelda.hu</a> ·
+      <a href="#">Instagram</a> ·
+      <a href="#">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  // Highlight the active nav link while scrolling through sections
+  const navLinks = document.querySelectorAll('[data-nav]');
+  const sections = ['about', 'works', 'cv'].map(id => document.getElementById(id));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          const match = link.getAttribute('href') === '#' + id;
+          if (match) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(s => s && observer.observe(s));
+</script>
+
+</body>
+</html>
