@@ -142,11 +142,13 @@
     border-radius: 2px;
     overflow: hidden;
     background: var(--paper);
+    max-width: 34rem;
+    aspect-ratio: 482 / 175;
   }
-  .hero-visual canvas{
+  .hero-visual iframe{
     display: block;
     width: 100%;
-    height: clamp(220px, 38vw, 420px);
+    height: 100%;
   }
 
   .hero-foot{
@@ -362,7 +364,13 @@
       </h1>
 
       <div class="hero-visual">
-        <canvas id="hero-riv"></canvas>
+        <iframe
+          src="https://www.rivemasterclass.com/player.html?src=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fbesskati%2Fportfolio%40main%2Fhero-animation.riv&fit=contain"
+          style="border:0;background:transparent"
+          loading="lazy"
+          allowfullscreen
+          title="Rive animation"
+        ></iframe>
       </div>
 
       <div class="hero-foot">
@@ -509,39 +517,6 @@
   }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
 
   sections.forEach(s => s && observer.observe(s));
-</script>
-
-<script src="https://unpkg.com/@rive-app/canvas@2.7.0"></script>
-<script>
-  // Hero Rive animation — expects hero-animation.riv in the same folder as this HTML file
-  const heroCanvas = document.getElementById('hero-riv');
-
-  const heroRive = new rive.Rive({
-    src: "hero-animation.riv",
-    canvas: heroCanvas,
-    autoplay: true,
-    layout: new rive.Layout({ fit: rive.Fit.Contain, alignment: rive.Alignment.Center }),
-    onLoad: () => {
-      heroRive.resizeDrawingSurfaceToCanvas();
-
-      // Rive only autoplays a loose linear animation by default.
-      // If the file uses a State Machine instead, it must be started explicitly by name.
-      console.log("Rive fájl tartalma:", heroRive.contents);
-      if (heroRive.stateMachineNames.length > 0) {
-        heroRive.play(heroRive.stateMachineNames[0]);
-      } else if (heroRive.animationNames.length > 0) {
-        heroRive.play(heroRive.animationNames[0]);
-      }
-    },
-    onLoadError: (e) => {
-      console.error("Nem sikerült betölteni a hero-animation.riv fájlt:", e);
-    }
-  });
-
-  const resizeObserver = new ResizeObserver(() => {
-    heroRive.resizeDrawingSurfaceToCanvas();
-  });
-  resizeObserver.observe(heroCanvas);
 </script>
 
 </body>
