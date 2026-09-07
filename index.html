@@ -523,6 +523,15 @@
     layout: new rive.Layout({ fit: rive.Fit.Contain, alignment: rive.Alignment.Center }),
     onLoad: () => {
       heroRive.resizeDrawingSurfaceToCanvas();
+
+      // Rive only autoplays a loose linear animation by default.
+      // If the file uses a State Machine instead, it must be started explicitly by name.
+      console.log("Rive fájl tartalma:", heroRive.contents);
+      if (heroRive.stateMachineNames.length > 0) {
+        heroRive.play(heroRive.stateMachineNames[0]);
+      } else if (heroRive.animationNames.length > 0) {
+        heroRive.play(heroRive.animationNames[0]);
+      }
     },
     onLoadError: (e) => {
       console.error("Nem sikerült betölteni a hero-animation.riv fájlt:", e);
