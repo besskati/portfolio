@@ -136,11 +136,24 @@
   h1.kinetic .line:nth-child(2) span{ animation-delay: 0.18s; color: var(--accent); }
   @keyframes reveal{ to{ transform: translateY(0); } }
 
+  .hero-visual{
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .hero-visual canvas{
+    display: block;
+    width: 100%;
+    height: clamp(220px, 38vw, 420px);
+  }
+
   .hero-foot{
     display: flex;
     flex-wrap: wrap;
     gap: 2.5rem;
-    margin-top: clamp(2.5rem, 6vw, 4rem);
+    margin-top: clamp(2rem, 5vw, 3rem);
     padding-top: 1.5rem;
     border-top: 1px solid var(--line);
     color: var(--muted);
@@ -347,6 +360,11 @@
         <span class="line"><span>Vizuális</span></span>
         <span class="line"><span>ritmus.</span></span>
       </h1>
+
+      <div class="hero-visual">
+        <canvas id="hero-riv"></canvas>
+      </div>
+
       <div class="hero-foot">
         <div>
           <strong>Alapítva</strong>
@@ -491,6 +509,31 @@
   }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
 
   sections.forEach(s => s && observer.observe(s));
+</script>
+
+<script src="https://unpkg.com/@rive-app/canvas@2.7.0"></script>
+<script>
+  // Hero Rive animation — expects hero-animation.riv in the same folder as this HTML file
+  const heroCanvas = document.getElementById('hero-riv');
+  function sizeCanvas(){
+    const rect = heroCanvas.getBoundingClientRect();
+    heroCanvas.width = rect.width * window.devicePixelRatio;
+    heroCanvas.height = rect.height * window.devicePixelRatio;
+  }
+  sizeCanvas();
+
+  const heroRive = new rive.Rive({
+    src: "hero-animation.riv",
+    canvas: heroCanvas,
+    autoplay: true,
+    fit: rive.Fit.contain,
+    onLoad: () => { heroRive.resizeDrawingSurfaceToCanvas(); }
+  });
+
+  window.addEventListener('resize', () => {
+    sizeCanvas();
+    heroRive.resizeDrawingSurfaceToCanvas();
+  });
 </script>
 
 </body>
