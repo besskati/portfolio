@@ -515,25 +515,24 @@
 <script>
   // Hero Rive animation — expects hero-animation.riv in the same folder as this HTML file
   const heroCanvas = document.getElementById('hero-riv');
-  function sizeCanvas(){
-    const rect = heroCanvas.getBoundingClientRect();
-    heroCanvas.width = rect.width * window.devicePixelRatio;
-    heroCanvas.height = rect.height * window.devicePixelRatio;
-  }
-  sizeCanvas();
 
   const heroRive = new rive.Rive({
     src: "hero-animation.riv",
     canvas: heroCanvas,
     autoplay: true,
-    fit: rive.Fit.contain,
-    onLoad: () => { heroRive.resizeDrawingSurfaceToCanvas(); }
+    layout: new rive.Layout({ fit: rive.Fit.Contain, alignment: rive.Alignment.Center }),
+    onLoad: () => {
+      heroRive.resizeDrawingSurfaceToCanvas();
+    },
+    onLoadError: (e) => {
+      console.error("Nem sikerült betölteni a hero-animation.riv fájlt:", e);
+    }
   });
 
-  window.addEventListener('resize', () => {
-    sizeCanvas();
+  const resizeObserver = new ResizeObserver(() => {
     heroRive.resizeDrawingSurfaceToCanvas();
   });
+  resizeObserver.observe(heroCanvas);
 </script>
 
 </body>
